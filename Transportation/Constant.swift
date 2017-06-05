@@ -9,7 +9,7 @@
 import UIKit
 
 struct Constant {
-    static let itemPerRow: CGFloat = 4
+    static let itemPerRow: CGFloat = 3
     static let hardCodedPadding: CGFloat = 5
     static let itemPerCategory: Int = 9
 }

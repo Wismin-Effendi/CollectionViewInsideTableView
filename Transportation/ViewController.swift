@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    
     // code properties
     var categories = Transporter.Categories.allValues
     
@@ -54,11 +57,10 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TransportCategoryRow
         
-        print(indexPath.section)
         cell.transporters = allTransporters[indexPath.section]
-        print(allTransporters[indexPath.section])
-        
-        return cell 
+        cell.collectionView.reloadData()
+
+        return cell
     }
 }
 

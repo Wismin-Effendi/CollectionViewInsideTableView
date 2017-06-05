@@ -10,6 +10,8 @@ import UIKit
 
 class TransportCategoryRow: UITableViewCell {
  
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var transporters: [Transporter]!
     
     override func awakeFromNib() {
@@ -34,10 +36,7 @@ extension TransportCategoryRow: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! TransportCollectionViewCell
         
-        print(indexPath.section)
         cell.transporter = transporters[indexPath.row]
-        print(transporters[indexPath.row])
-        
         return cell
     }
 }
