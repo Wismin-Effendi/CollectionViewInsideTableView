@@ -23,7 +23,7 @@ struct Transporter {
         case helicopter
         case airplane
         
-        static let allValues = [bicycle, motorcycle, car, train, helicopter, airplane]
+        static let allValues = [bicycle, motorcycle, car, train, ship, helicopter, airplane]
         
         func description() -> String {
             switch self {
