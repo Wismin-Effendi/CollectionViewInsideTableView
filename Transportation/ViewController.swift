@@ -9,13 +9,29 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    var categories = Transport.Categories.allValues
+    
+    // code properties
+    var categories = Transporter.Categories.allValues
+    
+    var allTransporters = [[Transporter]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        populateTransporters()
     }
 
+    // helper to populate data 
+    private func populateTransporters() {
+        for category in Transporter.Categories.allValues {
+            let baseTitle = category.description()
+            var tranportersOfThisKind = [Transporter]()
+            for i in 1...Constant.itemPerCategory {
+                tranportersOfThisKind.append(Transporter(title: "\(baseTitle)0\(i)", kind: category, imageName: "images/\(baseTitle.lowercased())0\(i).jpg"))
+            }
+            allTransporters.append(tranportersOfThisKind)
+        }
+    }
 
 }
 
@@ -23,6 +39,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        print(categories.count)
         return categories.count
     }
     
@@ -31,12 +48,22 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return categories[section].rawValue
+        return categories[section].description()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TransportCategoryRow
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TransportCategoryRow
+        
+        print(indexPath.section)
+        cell.transporters = allTransporters[indexPath.section]
+        print(allTransporters[indexPath.section])
         
         return cell 
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (view.bounds.width / Constant.itemPerRow) - Constant.hardCodedPadding
     }
 }

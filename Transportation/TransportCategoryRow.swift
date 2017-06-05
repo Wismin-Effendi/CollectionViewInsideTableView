@@ -9,10 +9,12 @@
 import UIKit
 
 class TransportCategoryRow: UITableViewCell {
-
+ 
+    var transporters: [Transporter]!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,11 +28,15 @@ class TransportCategoryRow: UITableViewCell {
 extension TransportCategoryRow: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return Constant.itemPerCategory
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TransportationCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! TransportCollectionViewCell
+        
+        print(indexPath.section)
+        cell.transporter = transporters[indexPath.row]
+        print(transporters[indexPath.row])
         
         return cell
     }
@@ -41,8 +47,8 @@ extension TransportCategoryRow: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let itemPerRow: CGFloat = 3
-        let hardCodedPadding: CGFloat = 5
+        let itemPerRow: CGFloat = Constant.itemPerRow
+        let hardCodedPadding: CGFloat = Constant.hardCodedPadding
         let itemWidth = (collectionView.bounds.width / itemPerRow) - hardCodedPadding
         let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
         return CGSize(width: itemWidth, height: itemHeight)
